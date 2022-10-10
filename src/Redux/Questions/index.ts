@@ -1,5 +1,6 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {getQuestions} from '../../Api/Questions';
+import {RootState} from '../../Store/types';
 
 export interface Question {
   key: number;
@@ -10,12 +11,23 @@ export interface Question {
 
 export interface QuestionsState {
   questions: Array<Question>;
+  answers: Answers;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 
+export interface Answers {
+  [questionKey: number]: Answer;
+}
+
+export interface Answer {
+  questionKey: number;
+  answer: string | Array<string>;
+}
+
 const initialState: QuestionsState = {
   questions: [],
+  answers: {},
   status: 'idle',
   error: null,
 };
@@ -24,14 +36,19 @@ export const fetchQuestions = createAsyncThunk(
   'questions/fetchQuestions',
   async () => {
     const response = await getQuestions;
-    return response.data;
+    return response;
   },
 );
 
 export const questionsSlice = createSlice({
   name: 'questions',
   initialState,
-  reducers: {},
+  reducers: {
+    updateAnswer: (state: QuestionsState, action: PayloadAction<Answer>) => {
+      const answer = action.payload;
+      state.answers = {...state.answers, [answer.questionKey]: answer};
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchQuestions.pending, state => {
@@ -48,8 +65,9 @@ export const questionsSlice = createSlice({
   },
 });
 
-export const {} = questionsSlice.actions;
+export const {updateAnswer} = questionsSlice.actions;
 
 export default questionsSlice.reducer;
 
-export const selectAllQuestions = state => state.questions.questions;
+export const selectAllQuestions = (state: RootState) =>
+  state.questionsState.questions;
