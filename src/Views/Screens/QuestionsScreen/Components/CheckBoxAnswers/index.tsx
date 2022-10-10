@@ -1,4 +1,5 @@
 import CheckBox from '@react-native-community/checkbox';
+import {current} from '@reduxjs/toolkit';
 import React from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
@@ -17,12 +18,24 @@ const CheckBoxAnswers = (props: Props) => {
     (state: RootState) => state.questionsState.answers[question.key]?.answer,
   );
 
-  console.log(currentAnswer);
-
   const onChange = (newValue: boolean, item: string) => {
-    console.log('item', item, newValue);
-    if (newValue) {
-      dispatch(updateAnswer({answer: item, questionKey: question.key}));
+    if (currentAnswer) {
+      let newAnswer = [...currentAnswer];
+      if (!currentAnswer.includes(item)) {
+        newAnswer = newAnswer.concat(item);
+      } else {
+        if (currentAnswer.length === 1) {
+          newAnswer = [];
+        } else {
+          const index = newAnswer.indexOf(item);
+          if (index > -1) {
+            newAnswer.splice(index, 1);
+          }
+        }
+      }
+      dispatch(updateAnswer({answer: newAnswer, questionKey: question.key}));
+    } else {
+      dispatch(updateAnswer({answer: [item], questionKey: question.key}));
     }
   };
 
@@ -31,9 +44,10 @@ const CheckBoxAnswers = (props: Props) => {
       {question.options?.map((item, key) => (
         <View style={{flexDirection: 'row'}}>
           <CheckBox
+            boxType={'square'}
             key={key}
-            disabled={currentAnswer === item}
-            value={currentAnswer === item}
+            disabled={false}
+            value={currentAnswer?.includes(item)}
             onValueChange={newValue => onChange(newValue, item)}
           />
           <Text key={item}>{item}</Text>

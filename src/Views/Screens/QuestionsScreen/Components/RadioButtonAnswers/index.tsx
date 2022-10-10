@@ -1,5 +1,4 @@
 import CheckBox from '@react-native-community/checkbox';
-import {current} from '@reduxjs/toolkit';
 import React from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
@@ -18,10 +17,7 @@ const RadioButtonAnswers = (props: Props) => {
     (state: RootState) => state.questionsState.answers[question.key]?.answer,
   );
 
-  console.log(currentAnswer);
-
   const onChange = (newValue: boolean, item: string) => {
-    console.log('item', item, newValue);
     if (newValue) {
       dispatch(updateAnswer({answer: item, questionKey: question.key}));
     }

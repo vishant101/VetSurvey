@@ -10,6 +10,7 @@ import {
   Seperator,
 } from './styles';
 import {RadioButtonAnswers} from './Components';
+import CheckBoxAnswers from './Components/CheckBoxAnswers';
 
 interface RenderItemProp {
   item: Question;
@@ -25,6 +26,7 @@ const QuestionsScreen = () => {
       case 'radio-button':
         return <RadioButtonAnswers question={question} />;
       case 'check-box':
+        return <CheckBoxAnswers question={question} />;
       case 'number-selection':
       case 'long-form':
       default:
