@@ -25,16 +25,15 @@ const RadioButtonAnswers = (props: Props) => {
   return (
     <Container>
       {question.options?.map((item, key) => (
-        <RowContainer>
+        <RowContainer key={key}>
           <CheckBox
             onAnimationType={'fill'}
             offAnimationType={'fill'}
-            key={key}
             disabled={currentAnswer === item}
             value={currentAnswer === item}
             onValueChange={newValue => onChange(newValue, item)}
           />
-          <RowText key={item}>{item}</RowText>
+          <RowText>{item}</RowText>
         </RowContainer>
       ))}
     </Container>

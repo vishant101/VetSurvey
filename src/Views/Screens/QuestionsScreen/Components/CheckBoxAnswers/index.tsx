@@ -40,17 +40,16 @@ const CheckBoxAnswers = (props: Props) => {
   return (
     <Container>
       {question.options?.map((item, key) => (
-        <RowContainer>
+        <RowContainer key={key}>
           <CheckBox
             onAnimationType={'fill'}
             offAnimationType={'fill'}
             boxType={'square'}
-            key={key}
             disabled={false}
             value={currentAnswer?.includes(item)}
             onValueChange={newValue => onChange(newValue, item)}
           />
-          <RowText key={item}>{item}</RowText>
+          <RowText>{item}</RowText>
         </RowContainer>
       ))}
     </Container>
