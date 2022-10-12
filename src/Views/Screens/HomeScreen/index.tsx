@@ -34,7 +34,7 @@ const HomeScreen = () => {
       <Image source={APP_IMAGES.doctor} />
       <HomeText>{APP_STRINGS.HOME_TEXT}</HomeText>
       <Button
-        text={'GetStarted'}
+        text={APP_STRINGS.HOME_BUTTON_TEXT}
         onPress={() => navigation.navigate('Questions')}
       />
     </>

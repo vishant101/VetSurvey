@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   Question,
@@ -8,8 +8,12 @@ import {
 } from '../../../Redux/Questions';
 
 import {
+  ButtonContainer,
+  ButtonText,
+  Footer,
   PageContainer,
   QuestionContainer,
+  QuestionsList,
   QuestionTitle,
   Seperator,
 } from './styles';
@@ -20,6 +24,7 @@ import {
   LongFormAnswers,
 } from './Components';
 import {useNavigation} from '@react-navigation/native';
+import {APP_STRINGS} from '../../../AppStyles';
 
 interface RenderItemProp {
   item: Question;
@@ -32,11 +37,11 @@ const QuestionsScreen = () => {
 
   const createAlert = () =>
     Alert.alert(
-      'Submission Successful',
-      'We have recorded your responses and a vet will be in touch with you shortly',
+      APP_STRINGS.SUBMISSION_ALERT_TITLE,
+      APP_STRINGS.SUBMISSION_ALERT_MESSAGE,
       [
         {
-          text: 'OK',
+          text: APP_STRINGS.SUBMISSION_ALERT_BUTTON_TEXT,
           onPress: () => {
             dispatch(resetAnswers());
             navigation.goBack();
@@ -69,24 +74,26 @@ const QuestionsScreen = () => {
     );
   };
 
+  const renderFooter = () => (
+    <Footer>
+      <ButtonContainer onPress={() => dispatch(resetAnswers())}>
+        <ButtonText>{APP_STRINGS.RESET}</ButtonText>
+      </ButtonContainer>
+      <ButtonContainer onPress={() => createAlert()}>
+        <ButtonText>{APP_STRINGS.SUBMIT}</ButtonText>
+      </ButtonContainer>
+    </Footer>
+  );
+
   return (
     <PageContainer>
-      <View style={{flex: 0.9}}>
-        <FlatList
-          data={questions}
-          renderItem={renderItem}
-          keyExtractor={(item: Question) => item.key.toString()}
-          ItemSeparatorComponent={() => <Seperator />}
-        />
-      </View>
-      <View style={{flex: 0.1, flexDirection: 'row'}}>
-        <TouchableOpacity onPress={() => dispatch(resetAnswers())}>
-          <Text>Reset</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => createAlert()}>
-          <Text>Submit</Text>
-        </TouchableOpacity>
-      </View>
+      <QuestionsList
+        data={questions}
+        renderItem={renderItem}
+        keyExtractor={(item: Question) => item.key.toString()}
+        ItemSeparatorComponent={() => <Seperator />}
+      />
+      {renderFooter()}
     </PageContainer>
   );
 };

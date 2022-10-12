@@ -19,3 +19,32 @@ export const QuestionContainer = styled.View`
   flex-direction: column;
   padding: 20px;
 `;
+
+export const QuestionsList = styled.FlatList`
+  flex: 0.9;
+`;
+
+export const ButtonContainer = styled.TouchableOpacity`
+  height: 40px;
+  width: 120px;
+  background-color: ${APP_COLORS.primary};
+  align-items: center;
+  justify-content: center;
+  padding: 10px 30px;
+  border-radius: 50px;
+  margin: 10px 10px;
+`;
+
+export const ButtonText = styled.Text`
+  color: ${APP_COLORS.white};
+  font-size: 14px;
+`;
+
+export const Footer = styled.View`
+  border-top-width: 1px;
+  flex: 0.1;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`;

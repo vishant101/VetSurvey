@@ -11,5 +11,5 @@ export const PageContainer = styled.View`
 export const HomeText = styled.Text`
   font-size: 16px;
   text-align: center;
-  padding: 10px 16px;
+  padding: 10px 16px 20px 16px;
 `;

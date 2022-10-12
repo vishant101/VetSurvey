@@ -1,5 +1,6 @@
 import React from 'react';
-import {Text, TouchableOpacity, GestureResponderEvent} from 'react-native';
+import {GestureResponderEvent} from 'react-native';
+import {ButtonContainer, ButtonText} from './styles';
 
 interface Props {
   text: string;
@@ -8,9 +9,9 @@ interface Props {
 
 const Button = ({text, onPress}: Props) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text>{text}</Text>
-    </TouchableOpacity>
+    <ButtonContainer onPress={onPress}>
+      <ButtonText>{text}</ButtonText>
+    </ButtonContainer>
   );
 };
 
