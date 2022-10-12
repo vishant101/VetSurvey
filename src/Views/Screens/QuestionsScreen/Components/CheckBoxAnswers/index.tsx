@@ -1,5 +1,4 @@
 import CheckBox from '@react-native-community/checkbox';
-import {current} from '@reduxjs/toolkit';
 import React from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
@@ -12,8 +11,8 @@ interface Props {
 }
 
 const CheckBoxAnswers = (props: Props) => {
-  const dispatch = useDispatch();
   const {question} = props;
+  const dispatch = useDispatch();
   const currentAnswer = useSelector(
     (state: RootState) => state.questionsState.answers[question.key]?.answer,
   );

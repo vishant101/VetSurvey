@@ -1,16 +1,24 @@
-import React, {useState} from 'react';
-import {FlatList, View} from 'react-native';
-import {useSelector} from 'react-redux';
-import CheckBox from '@react-native-community/checkbox';
-import {Question, selectAllQuestions} from '../../../Redux/Questions';
+import React from 'react';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  Question,
+  selectAllQuestions,
+  resetAnswers,
+} from '../../../Redux/Questions';
+
 import {
   PageContainer,
   QuestionContainer,
   QuestionTitle,
   Seperator,
 } from './styles';
-import {RadioButtonAnswers} from './Components';
-import CheckBoxAnswers from './Components/CheckBoxAnswers';
+import {
+  CheckBoxAnswers,
+  NumberSelectionAnswers,
+  RadioButtonAnswers,
+  LongFormAnswers,
+} from './Components';
 
 interface RenderItemProp {
   item: Question;
@@ -18,8 +26,7 @@ interface RenderItemProp {
 
 const QuestionsScreen = () => {
   const questions = useSelector(selectAllQuestions);
-  const [answers, setAnswers] = useState(questions);
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const dispatch = useDispatch();
 
   const renderAnswerComponent = (question: Question) => {
     switch (question.type) {
@@ -28,7 +35,9 @@ const QuestionsScreen = () => {
       case 'check-box':
         return <CheckBoxAnswers question={question} />;
       case 'number-selection':
+        return <NumberSelectionAnswers question={question} />;
       case 'long-form':
+        return <LongFormAnswers question={question} />;
       default:
         return null;
     }
@@ -45,12 +54,19 @@ const QuestionsScreen = () => {
 
   return (
     <PageContainer>
-      <FlatList
-        data={questions}
-        renderItem={renderItem}
-        keyExtractor={(item: Question) => item.key.toString()}
-        ItemSeparatorComponent={() => <Seperator />}
-      />
+      <View style={{flex: 0.9}}>
+        <FlatList
+          data={questions}
+          renderItem={renderItem}
+          keyExtractor={(item: Question) => item.key.toString()}
+          ItemSeparatorComponent={() => <Seperator />}
+        />
+      </View>
+      <View style={{flex: 0.1}}>
+        <TouchableOpacity onPress={() => dispatch(resetAnswers())}>
+          <Text>Reset</Text>
+        </TouchableOpacity>
+      </View>
     </PageContainer>
   );
 };

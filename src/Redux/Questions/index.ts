@@ -48,6 +48,9 @@ export const questionsSlice = createSlice({
       const answer = action.payload;
       state.answers = {...state.answers, [answer.questionKey]: answer};
     },
+    resetAnswers: (state: QuestionsState) => {
+      state.answers = {};
+    },
   },
   extraReducers(builder) {
     builder
@@ -65,7 +68,7 @@ export const questionsSlice = createSlice({
   },
 });
 
-export const {updateAnswer} = questionsSlice.actions;
+export const {updateAnswer, resetAnswers} = questionsSlice.actions;
 
 export default questionsSlice.reducer;
 
