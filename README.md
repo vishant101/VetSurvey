@@ -1,7 +1,7 @@
 # DigiVet 
 A React-Native Survey app to identify if the pet of a user is showing any symptoms. The user answers a series of questions retrieved by and api and then this is submitted.
 
-Note: the app ahs only been built and tested for Android devices. iOS functionality may vary.
+Note: the app has only been built and tested for iOS devices. Android functionality may vary.
 
 
 ## Getting Started
@@ -17,8 +17,7 @@ Note: the app ahs only been built and tested for Android devices. iOS functional
 - iOS: `npx react-native run-ios`
 
 ## ScreenRecording
-
-<img src="https://github.com/vishant101/VetSurvey/blob/master/Recording.gif" alt="Recording" title="Recording" />
+![](https://github.com/vishant101/VetSurvey/blob/master/Recording.gif)
 
 
 ## License
