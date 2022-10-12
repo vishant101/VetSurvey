@@ -21,7 +21,7 @@ const NumberSelectionAnswers = (props: Props) => {
 
   const onChange = (value: number) => {
     dispatch(
-      updateAnswer({answer: [value.toString()], questionKey: question.key}),
+      updateAnswer({answer: value.toString(), questionKey: question.key}),
     );
   };
 
