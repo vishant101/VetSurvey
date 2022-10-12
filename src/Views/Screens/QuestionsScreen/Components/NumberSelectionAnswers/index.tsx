@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, View} from 'react-native';
 
 import Slider from '@react-native-community/slider';
@@ -19,11 +19,14 @@ const NumberSelectionAnswers = (props: Props) => {
   );
 
   const onChange = (value: number) => {
-    setTemprature(value.toString());
     dispatch(
       updateAnswer({answer: [value.toString()], questionKey: question.key}),
     );
   };
+
+  useEffect(() => {
+    setTemprature(currentAnswer);
+  }, [currentAnswer]);
 
   return (
     <View>
@@ -34,7 +37,9 @@ const NumberSelectionAnswers = (props: Props) => {
         onValueChange={onChange}
         value={Number(currentAnswer) || 0}
       />
-      <Text>{temprature} Degrees Celcius</Text>
+      <Text>
+        {temprature ? temprature : question.options[0]} Degrees Celcius
+      </Text>
     </View>
   );
 };
