@@ -1,10 +1,9 @@
 import CheckBox from '@react-native-community/checkbox';
 import React from 'react';
-import {View} from 'react-native';
-import {Text} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {Question, updateAnswer} from '../../../../../Redux/Questions';
 import {RootState} from '../../../../../Store/types';
+import {Container, RowContainer, RowText} from './styles';
 
 interface Props {
   question: Question;
@@ -39,20 +38,22 @@ const CheckBoxAnswers = (props: Props) => {
   };
 
   return (
-    <View>
+    <Container>
       {question.options?.map((item, key) => (
-        <View style={{flexDirection: 'row'}}>
+        <RowContainer>
           <CheckBox
+            onAnimationType={'fill'}
+            offAnimationType={'fill'}
             boxType={'square'}
             key={key}
             disabled={false}
             value={currentAnswer?.includes(item)}
             onValueChange={newValue => onChange(newValue, item)}
           />
-          <Text key={item}>{item}</Text>
-        </View>
+          <RowText key={item}>{item}</RowText>
+        </RowContainer>
       ))}
-    </View>
+    </Container>
   );
 };
 

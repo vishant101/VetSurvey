@@ -6,6 +6,7 @@ export const PageContainer = styled.View`
   background-color: ${APP_COLORS.white};
   align-items: center;
   justify-content: center;
+  width: 100%;
 `;
 
 export const Seperator = styled.View`
@@ -13,7 +14,9 @@ export const Seperator = styled.View`
   border-bottom-width: 1px;
 `;
 
-export const QuestionTitle = styled.Text``;
+export const QuestionTitle = styled.Text`
+  font-size: 16px;
+`;
 
 export const QuestionContainer = styled.View`
   flex-direction: column;
@@ -22,6 +25,7 @@ export const QuestionContainer = styled.View`
 
 export const QuestionsList = styled.FlatList`
   flex: 0.9;
+  width: 100%;
 `;
 
 export const ButtonContainer = styled.TouchableOpacity`

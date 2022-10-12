@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View} from 'react-native';
-
 import Slider from '@react-native-community/slider';
 import {Question, updateAnswer} from '../../../../../Redux/Questions';
 import {RootState} from '../../../../../Store/types';
 import {useDispatch, useSelector} from 'react-redux';
+import {Container, TempratureText} from './styles';
 
 interface Props {
   question: Question;
@@ -13,7 +12,9 @@ interface Props {
 const NumberSelectionAnswers = (props: Props) => {
   const {question} = props;
   const dispatch = useDispatch();
-  const [temprature, setTemprature] = useState(question.options[0]);
+  const initialValue = question.options ? Number(question.options[0]) : 0;
+  const maximumValue = question.options ? Number(question.options[1]) : 1;
+  const [temprature, setTemprature] = useState(initialValue);
   const currentAnswer = useSelector(
     (state: RootState) => state.questionsState.answers[question.key]?.answer,
   );
@@ -25,22 +26,23 @@ const NumberSelectionAnswers = (props: Props) => {
   };
 
   useEffect(() => {
-    setTemprature(currentAnswer);
+    const temp = typeof currentAnswer === 'string' ? currentAnswer : '';
+    setTemprature(Number(temp));
   }, [currentAnswer]);
 
   return (
-    <View>
+    <Container>
       <Slider
-        minimumValue={Number(question.options[0])}
-        maximumValue={Number(question.options[1])}
+        minimumValue={initialValue}
+        maximumValue={maximumValue}
         step={1}
         onValueChange={onChange}
         value={Number(currentAnswer) || 0}
       />
-      <Text>
-        {temprature ? temprature : question.options[0]} Degrees Celcius
-      </Text>
-    </View>
+      <TempratureText>
+        {temprature ? temprature : initialValue} Degrees Celsius
+      </TempratureText>
+    </Container>
   );
 };
 

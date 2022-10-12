@@ -1,8 +1,8 @@
 import React from 'react';
-import {TextInput} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Question, updateAnswer} from '../../../../../Redux/Questions';
 import {RootState} from '../../../../../Store/types';
+import {StyledTextInput} from './styles';
 
 interface Props {
   question: Question;
@@ -20,14 +20,9 @@ const LongFormAnswers = (props: Props) => {
   };
 
   return (
-    <TextInput
+    <StyledTextInput
       numberOfLines={5}
       onChangeText={onChange}
-      style={{
-        borderColor: '#000000',
-        borderWidth: 1,
-        padding: 10,
-      }}
       maxLength={40}
       editable
       multiline
