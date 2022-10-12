@@ -20,7 +20,7 @@ Note: the app ahs only been built and tested for Android devices. iOS functional
 
 |------|
 | <img src="https://github.com/vishant101/VetSurvey/blob/master/Recording.gif" width="275" alt="Recording" title="Recording" /> |
-|--------|
+|------|
 
 ## License
 MIT
